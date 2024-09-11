@@ -8,7 +8,7 @@ A comprehensive dashboard for managing hotel reservations, available rooms, and 
 - **User Authentication**: Secure login functionality for staff to access the dashboard.
 
 ## Live Demo
-[The Wild Oasis Live](https://the-wild-oasis-seven-tau.vercel.app/dashboard)
+[The Wild Oasis Live](the-wild-oasis-seven-tau.vercel.app)
 
 ## Technologies Used
 - **React**: A JavaScript library for building user interfaces.
