@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
-import useOutsideClick from "../hooks/useOutsideClick";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const Menu = styled.div`
   display: flex;
@@ -76,13 +76,7 @@ function Menus({ children }) {
 
   return (
     <MenusContext.Provider
-      value={{
-        openId,
-        close,
-        open,
-        position,
-        setPosition,
-      }}
+      value={{ openId, close, open, position, setPosition }}
     >
       {children}
     </MenusContext.Provider>
@@ -90,15 +84,16 @@ function Menus({ children }) {
 }
 
 function Toggle({ id }) {
-  const { openId, open, close, setPosition } = useContext(MenusContext);
+  const { openId, close, open, setPosition } = useContext(MenusContext);
 
   function handleClick(e) {
+    e.stopPropagation();
+
     const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
-    console.log(rect);
 
     openId === "" || openId !== id ? open(id) : close();
   }
@@ -111,13 +106,13 @@ function Toggle({ id }) {
 }
 
 function List({ id, children }) {
-  const { openId, close, position } = useContext(MenusContext);
-  const ref = useOutsideClick(close);
+  const { openId, position, close } = useContext(MenusContext);
+  const ref = useOutsideClick(close, false);
 
   if (openId !== id) return null;
 
   return createPortal(
-    <StyledList ref={ref} position={position}>
+    <StyledList position={position} ref={ref}>
       {children}
     </StyledList>,
     document.body
@@ -135,7 +130,8 @@ function Button({ children, icon, onClick }) {
   return (
     <li>
       <StyledButton onClick={handleClick}>
-        {icon} <span>{children}</span>
+        {icon}
+        <span>{children}</span>
       </StyledButton>
     </li>
   );

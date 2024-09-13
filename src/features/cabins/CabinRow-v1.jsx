@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { formatCurrency } from "../../utils/helpers";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
+import { formatCurrency } from "../../utils/helpers";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
@@ -50,7 +50,7 @@ const Discount = styled.div`
 
 function CabinRow({ cabin }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
-  const { createCabin, isCreating } = useCreateCabin();
+  const { isCreating, createCabin } = useCreateCabin();
 
   const {
     id: cabinId,
@@ -85,7 +85,7 @@ function CabinRow({ cabin }) {
         <span>&mdash;</span>
       )}
       <div>
-        <button onClick={handleDuplicate} disabled={isCreating}>
+        <button disabled={isCreating} onClick={handleDuplicate}>
           <HiSquare2Stack />
         </button>
 
@@ -95,7 +95,6 @@ function CabinRow({ cabin }) {
               <HiPencil />
             </button>
           </Modal.Open>
-
           <Modal.Window name="edit">
             <CreateCabinForm cabinToEdit={cabin} />
           </Modal.Window>
@@ -105,7 +104,6 @@ function CabinRow({ cabin }) {
               <HiTrash />
             </button>
           </Modal.Open>
-
           <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="cabins"

@@ -3,34 +3,26 @@ import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical";
-import toast from "react-hot-toast";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
 
 function LoginForm() {
-  const [email, setEmail] = useState("fares@test.com");
-  const [password, setPassword] = useState("fares123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login, isLoading } = useLogin();
-
-  const isValid = () => {
-    let result = true;
-    if (email === "" || email === null) {
-      result = false;
-      toast.error("Please, Enter Email");
-    }
-    if (password === "" || password === null) {
-      result = false;
-      toast.error("Please, Enter Password");
-    }
-
-    return result;
-  };
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (isValid()) {
-      login({ email, password });
-    }
+    if (!email || !password) return;
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
 
   return (
@@ -46,6 +38,7 @@ function LoginForm() {
           disabled={isLoading}
         />
       </FormRowVertical>
+
       <FormRowVertical label="Password">
         <Input
           type="password"
@@ -58,7 +51,7 @@ function LoginForm() {
       </FormRowVertical>
       <FormRowVertical>
         <Button size="large" disabled={isLoading}>
-          {!isLoading ? "Login" : <SpinnerMini />}
+          {!isLoading ? "Log in" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
     </Form>

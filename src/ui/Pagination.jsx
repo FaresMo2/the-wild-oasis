@@ -88,9 +88,9 @@ function Pagination({ count }) {
       <P>
         Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
         <span>
-          {currentPage === pageCount ? count : currentPage * PAGE_SIZE} of{" "}
-          <span>{count}</span> Results
-        </span>
+          {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
+        </span>{" "}
+        of <span>{count}</span> results
       </P>
 
       <Buttons>
@@ -102,7 +102,8 @@ function Pagination({ count }) {
           onClick={nextPage}
           disabled={currentPage === pageCount}
         >
-          <span>Next</span> <HiChevronRight />
+          <span>Next</span>
+          <HiChevronRight />
         </PaginationButton>
       </Buttons>
     </StyledPagination>

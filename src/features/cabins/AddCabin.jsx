@@ -18,16 +18,16 @@ function AddCabin() {
 }
 
 // function AddCabin() {
-//   const [isOpenModel, setIsOpenModel] = useState(false);
+//   const [isOpenModal, setIsOpenModal] = useState(false);
 
 //   return (
 //     <div>
-//       <Button onClick={() => setIsOpenModel((show) => !show)}>
-//         Add New Cabin
+//       <Button onClick={() => setIsOpenModal((show) => !show)}>
+//         Add new cabin
 //       </Button>
-//       {isOpenModel && (
-//         <Modal onClose={() => setIsOpenModel(false)}>
-//           <CreateCabinForm onCloseModal={() => setIsOpenModel(false)} />
+//       {isOpenModal && (
+//         <Modal onClose={() => setIsOpenModal(false)}>
+//           <CreateCabinForm onCloseModal={() => setIsOpenModal(false)} />
 //         </Modal>
 //       )}
 //     </div>
